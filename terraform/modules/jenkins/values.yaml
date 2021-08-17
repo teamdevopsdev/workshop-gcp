@@ -1,0 +1,25 @@
+master:
+  numExecutors: 1
+  overwritePlugins: true
+  enableXmlConfig: true
+  runAsUser: 0
+  fsGroup: 0
+  JCasC:
+    enabled: false
+    defaultConfig: false
+  sidecars:
+    configAutoReload:
+      enabled: false
+  persistence:
+    enabled: true
+    size: "8Gi"
+  resources:
+    requests:
+      cpu: "512m"
+      memory: "512Mi"
+      limits:
+       cpu: "512m"
+       memory: "512Mi"
+  servicePort: 8080
+  targetPort: 8080
+  serviceType: LoadBalancer
