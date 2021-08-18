@@ -1,5 +1,4 @@
 podTemplate(
-    name: 'android-firebase'
     label: 'android', 
     containers: [
         containerTemplate(args: 'cat', name: 'docker', command: '/bin/sh -c', image: 'docker', ttyEnabled: true)
