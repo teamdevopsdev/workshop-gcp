@@ -6,15 +6,15 @@ podTemplate(
     volumes: [
       hostPathVolume(mountPath: '/var/run/docker.sock', hostPath: '/var/run/docker.sock')
     ]
-){
+) {
     node('android') {
         environment {
             APP_NAME = 'test'
         }
-        
+
         options {
         // Stop the build early in case of compile or test failures
-        skipStagesAfterUnstable()
+            skipStagesAfterUnstable()
         }
         stage('Detect build type') {
             steps {
