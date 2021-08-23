@@ -8,7 +8,7 @@ pipeline {
 
     environment {
         branch = 'main'
-        url = 'https://github.com/teamdevopsdev/workshop-gcp/tree/main/hello-word'
+        url = 'https://github.com/teamdevopsdev/workshop-gcp'
     }
 
     stages {
