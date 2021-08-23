@@ -1,12 +1,8 @@
 pipeline {
     agent any
-
     tools {
-
         gradle 'Gradle-7.2'
-    
     }
-
 
     environment {
         branch = 'main'
@@ -18,6 +14,12 @@ pipeline {
         stage('Checkout git') {
             steps {
                 git branch: branch, credentialsId: 'user-github', url: url
+            }
+        }
+
+        stage('Version Gradle') {
+            steps {
+                sh 'gradle -v'
             }
         }
 
