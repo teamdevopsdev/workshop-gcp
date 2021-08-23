@@ -21,9 +21,9 @@ pipeline {
             }
         }
 
-        stage('Lint') {
+        stage('Init') {
             steps {
-                sh "gradle lint"
+                sh "gradle init"
             }
         }
 
