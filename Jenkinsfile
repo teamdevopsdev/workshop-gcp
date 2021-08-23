@@ -3,8 +3,8 @@ pipeline {
 
     tools {
 
-        maven 'Gradle-7.2'
-
+        gradle 'Gradle-7.2'
+    
     }
 
 
