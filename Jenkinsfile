@@ -1,10 +1,6 @@
 pipeline {
+    agent any
 
-    agent {
-        any {
-            image 'androidsdk/android-30'
-        }
-    }
 
     environment {
         branch = 'main'
