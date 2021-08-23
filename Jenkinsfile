@@ -23,34 +23,34 @@ pipeline {
             }
         }
 
-        // stage('Init') {
-        //     steps {
-        //         sh "gradle init"
-        //     }
-        // }
+        stage('Init') {
+            steps {
+                sh "sudo gradle init"
+            }
+        }
 
-        // stage('Test') {
-        //     steps {
-        //         sh "gradle test --stacktrace"
-        //     }
-        // }
+        stage('Test') {
+            steps {
+                sh "sudo gradle test --stacktrace"
+            }
+        }
 
         stage('Credentials') {
             steps {
                 withCredentials([file(credentialsId: 'Android-key', variable: 'Android-key')]) {
-                    sh "cp '${Android-key}' app/key-teste-pipe.jks"
-                    sh "cat app/key-teste-pipe.jks"
+                    sh "sudo cp '${Android-key}' app/key-teste-pipe.jks"
+                    sh "sudo cat app/key-teste-pipe.jks"
                 }
                 withCredentials([file(credentialsId: 'firebase-test', variable: 'firebase-test')]) {
-                    sh "cp '${firebase-test}' app/service-account-firebase.json"
-                    sh "cat app/service-account-firebase.json"
+                    sh "sudo cp '${firebase-test}' app/service-account-firebase.json"
+                    sh "sudo cat app/service-account-firebase.json"
                 }
             }
         }
 
         stage('Build') {
             steps {
-                sh "gradle assembleDebug"
+                sh "sudo gradle assembleDebug"
             }
         }
 
@@ -58,7 +58,7 @@ pipeline {
             parallel {
                 stage('Firebase Distribution') {
                     steps {
-                        sh "gradle appDistributionUploadDebug"
+                        sh "sudo gradle appDistributionUploadDebug"
                     }
                 }
 
