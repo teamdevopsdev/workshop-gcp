@@ -23,17 +23,17 @@ pipeline {
             }
         }
 
-        stage('Init') {
-            steps {
-                sh "gradle init"
-            }
-        }
+        // stage('Init') {
+        //     steps {
+        //         sh "gradle init"
+        //     }
+        // }
 
-        stage('Test') {
-            steps {
-                sh "gradle test --stacktrace"
-            }
-        }
+        // stage('Test') {
+        //     steps {
+        //         sh "gradle test --stacktrace"
+        //     }
+        // }
 
         stage('Credentials') {
             steps {
@@ -50,8 +50,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "gradle "
-                sh "gradle clean assembleRelease"
+                sh "gradle assembleDebug"
             }
         }
 
@@ -59,7 +58,7 @@ pipeline {
             parallel {
                 stage('Firebase Distribution') {
                     steps {
-                        sh "gradle appDistributionUploadRelease"
+                        sh "gradle appDistributionUploadDebug"
                     }
                 }
 
