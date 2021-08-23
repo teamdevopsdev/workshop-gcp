@@ -29,7 +29,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh "./gradlew test --stacktrace"
+                sh "gradle test --stacktrace"
             }
         }
 
@@ -48,8 +48,8 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh "./gradlew "
-                sh "./gradlew clean assembleRelease"
+                sh "gradle "
+                sh "gradle clean assembleRelease"
             }
         }
 
@@ -57,7 +57,7 @@ pipeline {
             parallel {
                 stage('Firebase Distribution') {
                     steps {
-                        sh "./gradlew appDistributionUploadRelease"
+                        sh "gradle appDistributionUploadRelease"
                     }
                 }
 
