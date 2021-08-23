@@ -15,11 +15,11 @@ pipeline {
             }
         }
 
-        stage('Lint') {
-            steps {
-                sh "./gradlew lint"
-            }
-        }
+        // stage('Lint') {
+        //     steps {
+        //         sh "./gradlew lint"
+        //     }
+        // }
 
         stage('Test') {
             steps {
