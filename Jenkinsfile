@@ -1,6 +1,12 @@
 pipeline {
     agent any
 
+    tools {
+
+        maven 'Gradle-7.2'
+
+    }
+
 
     environment {
         branch = 'main'
