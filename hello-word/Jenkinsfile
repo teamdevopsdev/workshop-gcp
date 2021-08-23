@@ -8,7 +8,7 @@ pipeline {
 
     environment {
         branch = 'main'
-        url = 'https://github.com/teamdevopsdev/workshop-gcp'
+        url = 'https://github.com/teamdevopsdev/workshop-gcp/blob/main/hello-word/Jenkinsfile'
     }
 
     stages {
