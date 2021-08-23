@@ -21,11 +21,11 @@ pipeline {
             }
         }
 
-        // stage('Lint') {
-        //     steps {
-        //         sh "./gradlew lint"
-        //     }
-        // }
+        stage('Lint') {
+            steps {
+                sh "gradle lint"
+            }
+        }
 
         stage('Test') {
             steps {
