@@ -57,7 +57,8 @@ pipeline {
         stage('Build') {
             steps {
                 sh 'cd /var/jenkins_home/workspace/Android-sdk/android-sdk'
-                sh " ./gradlew assembleRelease"
+                sh './gradlew clean'
+                sh './gradlew assembleRelease'
             }
         }
 
