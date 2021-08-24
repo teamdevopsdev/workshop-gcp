@@ -47,6 +47,12 @@ pipeline {
             }
         }
 
+        stage('gradlew teste'){
+            steps{
+                sh './gradlew --stacktrace'
+            }
+        }
+
         stage('Build') {
             steps {
                 sh 'cd /var/jenkins_home/workspace/Android-sdk/android-sdk'
