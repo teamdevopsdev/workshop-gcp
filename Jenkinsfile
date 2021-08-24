@@ -1,13 +1,9 @@
 pipeline {
-    agent {
-        docker {
-            image 'openjdk:11'
-            args  '-v /tmp:/tmp'
-            reuseNode true
-        }
-    }
+    agent any
+
     tools {
         gradle 'Gradle-7.2'
+        jdk 'openjdk:11'
     }
 
     environment {
@@ -30,7 +26,7 @@ pipeline {
         }
         stage('Lint') {
             steps {
-                sh "./gradleW lint"
+                sh "./gradlew lint"
             }
         }
 
