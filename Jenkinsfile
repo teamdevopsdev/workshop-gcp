@@ -33,12 +33,12 @@ pipeline {
         stage('Credentials') {
             steps {
                 withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
-                    sh "cp '${ANDROID_KEYSTORE_FILE}' app/key-pipe.jks"
-                    sh "cat app/key-pipe.jks"
+                    sh "cp '${ANDROID_KEYSTORE_FILE}' hello-word/app/key-pipe.jks"
+                    sh "cat hello-word/app/key-pipe.jks"
                 }
                 withCredentials([file(credentialsId: 'firebase-test', variable: 'firebase-test')]) {
-                    sh " cp '${firebase-test}' app/service-account-firebase.json"
-                    sh " cat app/service-account-firebase.json"
+                    sh " cp '${firebase-test}' hello-word/app/service-account-firebase.json"
+                    sh " cat hello-word/app/service-account-firebase.json"
                 }
             }
         }
