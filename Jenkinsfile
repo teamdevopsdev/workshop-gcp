@@ -41,16 +41,18 @@ pipeline {
             }
         }
 
+
+
         stage('gradlew teste'){
             steps{
-                sh './gradlew compileDebugSources'
+                sh './gradlew build'
             }
         }
 
 
         stage('Build') {
             steps {
-                sh './gradlew assembleDebug'
+                sh './gradlew assembleRelease'
             }
         }
 
