@@ -1,5 +1,11 @@
 pipeline {
-    agent any
+    agent {
+        docker {
+            image 'openjdk:11'
+            args  '-v /tmp:/tmp'
+            reuseNode true
+        }
+    }
     tools {
         gradle 'Gradle-7.2'
     }
