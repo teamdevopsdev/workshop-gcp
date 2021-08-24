@@ -26,7 +26,7 @@ pipeline {
 
         stage('Gradlew clean') {
             steps {
-                sh './gradlew clean'
+                sh 'gradle test'
             }
         }
 
