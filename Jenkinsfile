@@ -47,6 +47,7 @@ pipeline {
             steps{
                 sh './gradlew build'
                 sh './gradlew tasks'
+                sh './gradlew help'
             }
         }
 
