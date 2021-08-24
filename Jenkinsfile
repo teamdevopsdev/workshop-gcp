@@ -44,7 +44,6 @@ pipeline {
         stage('Tasks') {
             steps{
                 sh 'gradle wrapper --gradle-version 7.2'
-                sh './gradlew test'
                 sh './gradlew tasks'
 
             }
@@ -52,7 +51,7 @@ pipeline {
 
         stage('gradlew teste'){
             steps{
-                sh './gradlew teste --stacktrace'
+                sh './gradlew tasks --stacktrace'
             }
         }
 
