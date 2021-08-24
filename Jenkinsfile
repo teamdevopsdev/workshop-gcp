@@ -45,6 +45,8 @@ pipeline {
 
         stage('Tasks') {
             steps{
+                sh 'gradle wrapper'
+                sh 'gradle wrapper --gradle-version 7.2 --distribution-type all'
                 sh './gradlew tasks'
             }
         }
