@@ -41,25 +41,16 @@ pipeline {
             }
         }
 
-        stage('Tasks') {
-            steps{
-                sh './gradlew tasks'
-                sh 'Install tasks'
-            }
-        }
-
         stage('gradlew teste'){
             steps{
-                sh './gradlew build'
+                sh './gradlew compileDebugSources'
             }
         }
 
 
         stage('Build') {
             steps {
-                sh 'cd /var/jenkins_home/workspace/Android-sdk/android-sdk'
-                sh './gradlew clean'
-                sh './gradlew assembleRelease'
+                sh './gradlew assembleDebug'
             }
         }
 
