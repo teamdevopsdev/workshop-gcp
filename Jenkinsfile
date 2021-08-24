@@ -22,16 +22,26 @@ pipeline {
                 sh 'gradle -v'
             }
         }
+        stage('Lint') {
+            steps {
+                sh "gradle lint"
+            }
+        }
 
+        stage('Test') {
+            steps {
+                sh "gradle test --stacktrace"
+            }
+        }
 
         stage('Credentials') {
             steps {
-                withCredentials([file(credentialsId: 'Android-key', variable: 'Android-key')]) {
-                    sh " cp '$Android-key' app/key-teste-pipe.jks"
-                    sh " cat app/key-teste-pipe.jks"
+                withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
+                    sh "cp '${ANDROID_KEYSTORE_FILE}' app/hello.jks"
+                    sh "cat app/hello.jks"
                 }
                 withCredentials([file(credentialsId: 'firebase-test', variable: 'firebase-test')]) {
-                    sh " cp '$firebase-test' app/service-account-firebase.json"
+                    sh " cp '${firebase-test}' app/service-account-firebase.json"
                     sh " cat app/service-account-firebase.json"
                 }
             }
