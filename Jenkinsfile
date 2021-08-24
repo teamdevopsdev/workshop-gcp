@@ -26,7 +26,7 @@ pipeline {
 
         stage('Gradlew build') {
             steps {
-                sh './gradlew build'
+                sh 'gradle init'
             }
         }
 
@@ -41,6 +41,12 @@ pipeline {
             }
         }
 
+        stage('Gradlew Run'){
+            steps{
+                sh './gradlew run'
+            }
+        }
+
         stage('Tasks') {
             steps{
                 sh 'gradle wrapper --gradle-version 7.2'
@@ -49,9 +55,10 @@ pipeline {
 
         stage('gradlew teste'){
             steps{
-                sh './gradlew tasks --all'
+                sh './gradlew build'
             }
         }
+
 
         stage('Build') {
             steps {
