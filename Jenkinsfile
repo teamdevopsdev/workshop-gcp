@@ -43,6 +43,13 @@ pipeline {
             }
         }
 
+        stage('Tasks') {
+            steps{
+                sh './gradlew teste'
+                sh './gradlew tasks'
+            }
+        }
+
         stage('Build') {
             steps {
                 sh " ./gradlew assembleDebug"
