@@ -23,15 +23,10 @@ pipeline {
                 sh 'gradle -v'
             }
         }
-        stage('Lint') {
-            steps {
-                sh "./gradlew lint"
-            }
-        }
 
         stage('Test') {
             steps {
-                sh "gradle test --stacktrace"
+                sh "./gradlew test --stacktrace"
             }
         }
 
