@@ -34,11 +34,9 @@ pipeline {
             steps {
                 withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
                     sh "cp '${ANDROID_KEYSTORE_FILE}' hello-word/app/key-pipe.jks"
-                    sh "cat hello-word/app/key-pipe.jks"
                 }
                 withCredentials([file(credentialsId: 'SERVICE_ACCOUNT_FIREBASE_APP', variable: 'SERVICE_ACCOUNT_FIREBASE_APP')]) {
                     sh " cp '${SERVICE_ACCOUNT_FIREBASE_APP}' hello-word/app/service-account-firebase.json"
-                    sh " cat hello-word/app/service-account-firebase.json"
                 }
             }
         }
@@ -47,13 +45,12 @@ pipeline {
             steps{
                 sh 'gradle wrapper'
                 sh 'gradle wrapper --gradle-version 7.2 --distribution-type all'
-                sh './gradlew tasks'
             }
         }
 
         stage('Build') {
             steps {
-                sh " ./gradlew assembleDebug"
+                sh " ./gradlew assembleRelease"
             }
         }
 
