@@ -30,12 +30,6 @@ pipeline {
             }
         }
 
-        stage('Test') {
-            steps {
-                sh "./gradlew build --scan"
-            }
-        }
-
         stage('Credentials') {
             steps {
                 withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
