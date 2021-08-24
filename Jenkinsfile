@@ -32,7 +32,7 @@ pipeline {
 
         stage('Test') {
             steps {
-                sh "./gradlew test --stacktrace"
+                sh "./gradlew build --scan"
             }
         }
 
