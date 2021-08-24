@@ -45,8 +45,7 @@ pipeline {
 
         stage('gradlew teste'){
             steps{
-                sh 'gradle wrapper --gradle-version 7.2 --distribution-type allr'
-
+                sh 'gradle wrapper'
             }
         }
 
