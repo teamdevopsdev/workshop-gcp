@@ -45,8 +45,7 @@ pipeline {
 
         stage('gradlew teste'){
             steps{
-                sh 'rm -rf /var/jenkins_home/jobs/teste-gradlew'
-                sh 'gradle wapper'
+                sh 'gradle wrapper --gradle-version 7.2 --distribution-type allr'
 
             }
         }
