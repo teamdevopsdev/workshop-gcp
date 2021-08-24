@@ -23,18 +23,6 @@ pipeline {
             }
         }
 
-        stage('Init') {
-            steps {
-                sh " gradle init"
-            }
-        }
-
-        stage('Test') {
-            steps {
-                sh " gradle test --stacktrace"
-            }
-        }
-
         stage('Credentials') {
             steps {
                 withCredentials([file(credentialsId: 'Android-key', variable: 'Android-key')]) {
