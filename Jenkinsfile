@@ -41,12 +41,6 @@ pipeline {
             }
         }
 
-        stage('Gradlew Run'){
-            steps{
-                sh './gradlew run'
-            }
-        }
-
         stage('Tasks') {
             steps{
                 sh 'gradle wrapper --gradle-version 7.2'
