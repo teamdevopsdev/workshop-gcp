@@ -24,7 +24,7 @@ pipeline {
         }
         stage('Lint') {
             steps {
-                sh "gradle lint"
+                sh "./gradleW lint"
             }
         }
 
