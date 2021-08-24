@@ -24,9 +24,9 @@ pipeline {
             }
         }
 
-        stage('Gradlew clean') {
+        stage('Gradlew build') {
             steps {
-                sh 'gradle test'
+                sh './gradlew build'
             }
         }
 
