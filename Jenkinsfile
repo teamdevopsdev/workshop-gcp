@@ -45,7 +45,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh " gradle assembleDebug"
+                sh " ./gradlew assembleDebug"
             }
         }
 
@@ -53,7 +53,7 @@ pipeline {
             parallel {
                 stage('Firebase Distribution') {
                     steps {
-                        sh " gradle appDistributionUploadDebug"
+                        sh "./gradlew appDistributionUploadDebug"
                     }
                 }
 
