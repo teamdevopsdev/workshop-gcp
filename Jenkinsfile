@@ -24,6 +24,12 @@ pipeline {
             }
         }
 
+        stage('Gradlew clean') {
+            steps {
+                sh './gradlew clean'
+            }
+        }
+
         stage('Test') {
             steps {
                 sh "./gradlew test --stacktrace"
