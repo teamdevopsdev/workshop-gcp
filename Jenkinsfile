@@ -45,7 +45,6 @@ pipeline {
 
         stage('Tasks') {
             steps{
-                sh './gradlew teste'
                 sh './gradlew tasks'
             }
         }
