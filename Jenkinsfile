@@ -46,6 +46,7 @@ pipeline {
         stage('gradlew teste'){
             steps{
                 sh 'gradle wrapper'
+                sh './gradlew tasks'
             }
         }
 
