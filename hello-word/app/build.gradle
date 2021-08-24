@@ -2,6 +2,7 @@ plugins {
     id 'com.android.application'
     id 'kotlin-android'
     id 'com.google.firebase.appdistribution'
+    id 'com.gradle.build-scan'
 }
 def keystorePropertiesFile = rootProject.file("app/keystore.properties")
 def keystoreProperties = new Properties()
@@ -31,11 +32,11 @@ android {
     }
 
     buildTypes {
-        debug {
 
-
+        buildScan {
+            licenseAgreementUrl = 'https://gradle.com/terms-of-service'
+            licenseAgree = 'yes'
         }
-
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
