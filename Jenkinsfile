@@ -44,19 +44,22 @@ pipeline {
         stage('Tasks') {
             steps{
                 sh 'gradle wrapper --gradle-version 7.2'
+                sh './gradlew test'
+                sh './gradlew tasks'
+
             }
         }
 
         stage('gradlew teste'){
             steps{
-                sh './gradlew --stacktrace'
+                sh './gradlew teste --stacktrace'
             }
         }
 
         stage('Build') {
             steps {
                 sh 'cd /var/jenkins_home/workspace/Android-sdk/android-sdk'
-                sh " ./gradlew assemble"
+                sh " ./gradlew assembleRelease"
             }
         }
 
