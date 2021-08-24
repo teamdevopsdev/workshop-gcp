@@ -45,7 +45,8 @@ pipeline {
 
         stage('gradlew teste'){
             steps{
-                sh 'find / | grep gradlew'
+                sh 'rm -rf /var/jenkins_home/jobs/teste-gradlew'
+                sh 'gradle wapper'
 
             }
         }
