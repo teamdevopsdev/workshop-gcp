@@ -36,8 +36,8 @@ pipeline {
                     sh "cp '${ANDROID_KEYSTORE_FILE}' hello-word/app/key-pipe.jks"
                     sh "cat hello-word/app/key-pipe.jks"
                 }
-                withCredentials([file(credentialsId: 'firebase-test', variable: 'firebase-test')]) {
-                    sh " cp '${firebase-test}' hello-word/app/service-account-firebase.json"
+                withCredentials([file(credentialsId: 'SERVICE_ACCOUNT_FIREBASE_APP', variable: 'SERVICE_ACCOUNT_FIREBASE_APP')]) {
+                    sh " cp '${SERVICE_ACCOUNT_FIREBASE_APP}' hello-word/app/service-account-firebase.json"
                     sh " cat hello-word/app/service-account-firebase.json"
                 }
             }
