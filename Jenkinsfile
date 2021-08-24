@@ -43,14 +43,14 @@ pipeline {
 
         stage('Tasks') {
             steps{
-                sh 'gradle wrapper --gradle-version 7.2 --distribution-type all'
+                sh 'gradle wrapper --gradle-version 7.2'
             }
         }
 
         stage('Build') {
             steps {
                 sh 'cd /var/jenkins_home/workspace/Android-sdk/android-sdk'
-                sh " ./gradlew assembleRelease"
+                sh " ./gradlew assemble"
             }
         }
 
