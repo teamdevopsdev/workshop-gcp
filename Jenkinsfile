@@ -3,7 +3,6 @@ pipeline {
 
     tools {
         gradle 'Gradle-7.2'
-        jdk 'JDK-9.0'
     }
 
     environment {
