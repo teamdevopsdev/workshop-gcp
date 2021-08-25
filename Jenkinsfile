@@ -14,7 +14,7 @@ podTemplate(
         def GIT_REPOS_URL = 'https://github.com/teamdevopsdev/workshop-gcp'
 
         stage('Checkout Git Repositório'){
-            REPOS = checkout([$class: 'GitSCM', branches: [name: '*/main'], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'user-github', url: GIT_REPOS_URL]]])
+            checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'user-github', url: GIT_REPOS_URL]]])
             REPOS = checkout scm
         }
     }
