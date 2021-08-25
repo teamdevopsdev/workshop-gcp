@@ -6,12 +6,17 @@ podTemplate(
         containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'androidsdk/android-30', name: 'android-sdk', ttyEnabled: true),
     ],
     volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')],
+
 ) {
     node('android-apk'){
 
         def REPOS
         def BRANCH = 'main'
         def GIT_REPOS_URL = 'https://github.com/teamdevopsdev/workshop-gcp'
+
+        tools {
+            gradle = 'Gradle-7.2'
+        }
 
         stage('Checkout Git Repositório'){
             checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'user-github', url: GIT_REPOS_URL]]])
