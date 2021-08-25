@@ -19,12 +19,21 @@ podTemplate(
             checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'user-github', url: GIT_REPOS_URL]]])
         }
 
+        stage('Install Gradle'){
+            container('android-sdk') {
+                sh 'wget https://services.gradle.org/distributions/gradle-7.2-bin.zip'
+                sh 'mkdir /opt/gradle'
+                sh 'unzip -d /opt/gradle gradle-7.2-bin.zip'
+                sh 'ls /opt/gradle/gradle-7.2'
+            }
+        }
+
         stage('versão'){
-            container('gradle') {
+            container('android-sdk') {
                 sh 'gradle -v'
-                sh 'gradle init'
                 sh 'chmod +x gradlew'
                 sh 'gradle wrapper --gradle-version 7.2'
+                sh 'gradle init'
                 sh './gradlew tasks'
             }
         }
@@ -36,7 +45,7 @@ podTemplate(
         }
 
         stage('Credentials') {
-            container('gradle') {
+            container('android-sdk') {
                 echo "Inicializando Container Gradle"
                 sleep(15)
                 withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
@@ -48,7 +57,7 @@ podTemplate(
             }
         }
         stage('Build') {
-            container('gradle') {
+            container('android-sdk') {
                 echo "Inicializando Container Gradle"
                 sleep(15)
                 sh './gradlew assembleRelease'
@@ -56,7 +65,7 @@ podTemplate(
             }
         }
         stage('Gradlew Lint') {
-                container('gradle') {
+                container('android-sdk') {
                 echo "Inicializando Container Android-SDK"
                 sleep(15)
                 sh './gradlew appDistributionUploadDebug"'
