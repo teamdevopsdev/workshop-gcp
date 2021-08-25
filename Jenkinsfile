@@ -16,3 +16,4 @@ podTemplate(
             git branch: '${BRANCH}', credentialsId: 'user-github', url: '${$URL}'
         }
     }
+}
