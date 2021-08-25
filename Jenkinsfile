@@ -46,10 +46,10 @@ podTemplate(
                 echo "Inicializando Container Gradle"
                 sleep(15)
                 withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
-                    sh "cp '${ANDROID_KEYSTORE_FILE}' myapp/app/key-pipe.jks"
+                    sh "cp '${ANDROID_KEYSTORE_FILE}' apptest/android/app/key-pipe.jks"
                 }
                 withCredentials([file(credentialsId: 'SERVICE_ACCOUNT_FIREBASE_APP', variable: 'SERVICE_ACCOUNT_FIREBASE_APP')]) {
-                    sh " cp '${SERVICE_ACCOUNT_FIREBASE_APP}' myapp/app/service-account-firebase.json"
+                    sh " cp '${SERVICE_ACCOUNT_FIREBASE_APP}' apptest/android/app/service-account-firebase.json"
                 }
             }
         }
