@@ -9,11 +9,13 @@ podTemplate(
 ) {
     node('android-apk'){
 
+        def REPOS
         def BRANCH = 'main'
         def URL = 'https://github.com/teamdevopsdev/workshop-gcp'
 
         stage('Checkout Git Repositório'){
-            git branch: '${BRANCH}', credentialsId: 'user-github', url: '${$URL}'
+            REPOS = checkout([$class: 'GitSCM', branches: [[name: '*/main'], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'user-github', url: GIT_REPOS_URL]]]])
+            REPOS = checkout scm
         }
     }
 }
