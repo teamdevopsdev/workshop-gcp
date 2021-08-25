@@ -26,7 +26,7 @@ podTemplate(
                 sh 'gradle wrapper --gradle-version 7.2'
             }
         }
-        
+
         stage('Credentials') {
             container('gradle') {
                 echo "Inicializando Container Android-SDK"
@@ -43,7 +43,8 @@ podTemplate(
             container('gradle') {
                 echo "Inicializando Container Android-SDK"
                 sleep(15)
-                sh './gradlew assembleRelease'
+                //sh './gradlew assembleRelease'
+                sh './gradlew assembleDebug'
             }
         }
         stage('Gradlew Lint') {
