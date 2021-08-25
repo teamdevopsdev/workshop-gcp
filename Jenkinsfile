@@ -17,47 +17,56 @@ podTemplate(
             checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'user-github', url: GIT_REPOS_URL]]])
         }
 
-        stage('Gradlew Lint') {
+        stage('Gradle') {
             container('android-sdk') {
             echo "Inicializando Container Android-SDK"
             sleep(15)
-            sh './gradlew lint'    
+            sh 'gradle -v'    
             }
         }
 
-        stage('Gradlew Test') {
-            container('android-sdk') {
-            echo "Inicializando Container Android-SDK"
-            sleep(15)
-            sh './gradlew test --stacktrace'
-            }
 
-        }
-        stage('Credentials') {
-            container('android-sdk') {
-            echo "Inicializando Container Android-SDK"
-            sleep(15)
-            withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
-                sh "cp '${ANDROID_KEYSTORE_FILE}' hello-word/app/key-pipe.jks"
-            }
-            withCredentials([file(credentialsId: 'SERVICE_ACCOUNT_FIREBASE_APP', variable: 'SERVICE_ACCOUNT_FIREBASE_APP')]) {
-                sh " cp '${SERVICE_ACCOUNT_FIREBASE_APP}' hello-word/app/service-account-firebase.json"
-            }
-            }
-        }
-        stage('Build') {
-            container('android-sdk') {
-            echo "Inicializando Container Android-SDK"
-            sleep(15)
-            sh './gradlew assembleRelease'
-            }
-        }
-        stage('Gradlew Lint') {
-            container('android-sdk') {
-            echo "Inicializando Container Android-SDK"
-            sleep(15)
-            sh './gradlew appDistributionUploadDebug"'
-            }
-        }
+        // stage('Gradlew Lint') {
+        //     container('android-sdk') {
+        //     echo "Inicializando Container Android-SDK"
+        //     sleep(15)
+        //     sh './gradlew lint'    
+        //     }
+        // }
+
+        // stage('Gradlew Test') {
+        //     container('android-sdk') {
+        //     echo "Inicializando Container Android-SDK"
+        //     sleep(15)
+        //     sh './gradlew test --stacktrace'
+        //     }
+
+        // }
+        // stage('Credentials') {
+        //     container('android-sdk') {
+        //     echo "Inicializando Container Android-SDK"
+        //     sleep(15)
+        //     withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
+        //         sh "cp '${ANDROID_KEYSTORE_FILE}' hello-word/app/key-pipe.jks"
+        //     }
+        //     withCredentials([file(credentialsId: 'SERVICE_ACCOUNT_FIREBASE_APP', variable: 'SERVICE_ACCOUNT_FIREBASE_APP')]) {
+        //         sh " cp '${SERVICE_ACCOUNT_FIREBASE_APP}' hello-word/app/service-account-firebase.json"
+        //     }
+        //     }
+        // }
+        // stage('Build') {
+        //     container('android-sdk') {
+        //     echo "Inicializando Container Android-SDK"
+        //     sleep(15)
+        //     sh './gradlew assembleRelease'
+        //     }
+        // }
+        // stage('Gradlew Lint') {
+        //     container('android-sdk') {
+        //     echo "Inicializando Container Android-SDK"
+        //     sleep(15)
+        //     sh './gradlew appDistributionUploadDebug"'
+        //     }
+        // }
     }
 }
