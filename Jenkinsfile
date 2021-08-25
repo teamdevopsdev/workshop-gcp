@@ -57,10 +57,10 @@ podTemplate(
             container('gradle') {
                 echo "Inicializando Container Gradle"
                 sleep(15)
-                sh 'cd android-sdk'
-                sh './gradlew assembleRelease'
+                sh './gradlew :app:assembleRelease'
             }
         }
+        
         stage('Gradlew App Distribution') {
                 container('gradle') {
                 echo "Inicializando Container Android-SDK"
