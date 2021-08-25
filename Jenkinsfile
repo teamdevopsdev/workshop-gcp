@@ -7,7 +7,7 @@ podTemplate(
     ],
     volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')],
 ) {
-    node('android-sdk'){
+    node('android-apk'){
 
         def BRANCH = 'main'
         def URL = 'https://github.com/teamdevopsdev/workshop-gcp'
