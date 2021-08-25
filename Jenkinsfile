@@ -23,7 +23,14 @@ podTemplate(
             container('gradle') {
                 sh 'gradle -v'
                 sh 'gradle init'
+                sh 'chmod +x gradlew'
                 sh 'gradle wrapper --gradle-version 7.2'
+            }
+        }
+
+        stage('Aceitando termos do SDK') {
+            container('android-sdk') {
+                sh 'yes | sdkmanager'
             }
         }
 
