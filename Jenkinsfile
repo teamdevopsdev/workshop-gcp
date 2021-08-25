@@ -34,7 +34,7 @@ podTemplate(
 
         stage('Install AndroidSDK') {
             container('gradle') {
-                sh 'sudo wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip'
+                sh 'wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip'
                 sh 'mkdir android-sdk'
                 sh 'unzip sdk-tools-linux-3859397.zip -d android-sdk'
                 sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
