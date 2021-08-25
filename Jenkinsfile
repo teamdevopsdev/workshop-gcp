@@ -27,6 +27,11 @@ podTemplate(
             }
         }
 
+        stage('Descobrindo onde está o android-sdk')
+            container('android-sdk') {
+                sh 'find / | grep android'
+            }
+
         stage('Credentials') {
             container('gradle') {
                 echo "Inicializando Container Gradle"
