@@ -26,12 +26,13 @@ podTemplate(
                 sh 'unzip -d /opt/gradle gradle-7.2-bin.zip'
                 sh 'ls /opt/gradle/gradle-7.2'
                 sh 'export PATH=$PATH:/opt/gradle/gradle-7.2/bin'
+                sh 'source /etc/profile.d/gradle.sh'
+                sh 'gradle --version'
             }
         }
 
         stage('versão'){
             container('android-sdk') {
-                sh 'gradle -version'
                 sh 'chmod +x gradlew'
                 sh 'gradle wrapper --gradle-version 7.2'
                 sh 'gradle init'
