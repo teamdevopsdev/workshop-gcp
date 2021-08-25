@@ -32,12 +32,19 @@ podTemplate(
             }
         }
 
-        // stage('Aceitando termos do SDK') {
-        //     container('gradle') {
-        //         sh 'apt install Android-sdk'
-        //         sh 'yes | sdkmanager --licences'
-        //     }
-        // }
+        stage('Install AndroidSDK') {
+            container('gradle') {
+                sh 'wget https://redirector.gvt1.com/edgedl/android/studio/ide-zips/2020.3.1.23/android-studio-2020.3.1.23-linux.tar.gz'
+                sh 'tar -vzxf android-studio-2020.3.1.23-linux.tar.gz'
+                sh 'yes | sdkmanager --licences'
+                sh 'mv android-sdk /opt/'
+                sh 'export ANDROID_SDK_ROOT=/opt/android-sdk'
+                sh 'echo "export ANDROID_SDK_ROOT=/opt/android-sdk" >> ~/.bashrc'
+                sh 'echo "export PATH=$PATH:$ANDROID_SDK_ROOT/tools" >> ~/.bashrc'
+                sh 're-login'
+                sh 'cd /opt/android-sdk/tools/bin'
+            }
+        }
 
         stage('Credentials') {
             container('gradle') {
