@@ -26,15 +26,7 @@ podTemplate(
                 sh 'gradle wrapper --gradle-version 7.2'
             }
         }
-
-        stage('Gradlew Test') {
-            container('gradle') {
-                echo "Inicializando Container Android-SDK"
-                sleep(15)
-                sh './gradlew test --stacktrace'
-            }
-
-        }
+        
         stage('Credentials') {
             container('gradle') {
                 echo "Inicializando Container Android-SDK"
