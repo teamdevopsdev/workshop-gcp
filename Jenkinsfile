@@ -27,9 +27,10 @@ podTemplate(
         stage('versão'){
             container('gradle') {
                 sh 'gradle init'
+                sh './gradlew check'
+                sh './gradlew run'
+                sh './gradlew build'
                 sh 'gradle wrapper --gradle-version 7.2 --distribution-type all'
-
-                // sh 'gradle wrapper --gradle-version 7.2'
                 sh './gradlew tasks'
                 sh './gradlew tasks --all'
             }
