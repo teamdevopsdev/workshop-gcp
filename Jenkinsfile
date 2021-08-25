@@ -15,7 +15,6 @@ podTemplate(
 
         stage('Checkout Git Repositório'){
             checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'user-github', url: GIT_REPOS_URL]]])
-            REPOS = checkout scm
         }
     }
 }
