@@ -1,76 +1,18 @@
-pipeline {
-    agent any
+podTemplate(
+    name: 'android-apk',
+    label: 'android-apk', 
+    containers: [
+        containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'docker', livenessProbe: containerLivenessProbe(execArgs: '', failureThreshold: 0, initialDelaySeconds: 0, periodSeconds: 0, successThreshold: 0, timeoutSeconds: 0), name: 'docker-container', resourceLimitCpu: '', resourceLimitMemory: '', resourceRequestCpu: '', resourceRequestMemory: '', ttyEnabled: true, workingDir: '/home/jenkins/agent'),
+        containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'androidsdk/android-30', name: 'android-sdk', ttyEnabled: true),
+    ],
+    volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')],
+) {
+    node(''){
 
-    tools {
-        gradle 'Gradle-7.2'
-    }
+        def BRANCH = 'main'
+        def URL = 'https://github.com/teamdevopsdev/workshop-gcp'
 
-    environment {
-        branch = 'main'
-        url = 'https://github.com/teamdevopsdev/workshop-gcp'
-    }
-
-    stages {
-
-        stage('Checkout git') {
-            steps {
-                git branch: branch, credentialsId: 'user-github', url: url
-            }
-        }
-
-        stage('Version Gradle') {
-            steps {
-                sh 'gradle -v'
-            }
-        }
-
-        stage('Gradlew build') {
-            steps {
-                sh 'gradle init'
-            }
-        }
-
-        stage('Credentials') {
-            steps {
-                withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
-                    sh "cp '${ANDROID_KEYSTORE_FILE}' hello-word/app/key-pipe.jks"
-                }
-                withCredentials([file(credentialsId: 'SERVICE_ACCOUNT_FIREBASE_APP', variable: 'SERVICE_ACCOUNT_FIREBASE_APP')]) {
-                    sh " cp '${SERVICE_ACCOUNT_FIREBASE_APP}' hello-word/app/service-account-firebase.json"
-                }
-            }
-        }
-
-
-
-        stage('gradlew teste'){
-            steps{
-                sh 'gradle wrapper'
-                sh './gradlew tasks'
-            }
-        }
-
-
-        stage('Build') {
-            steps {
-                sh './gradlew assemble'
-            }
-        }
-
-        stage('Publish') {
-            parallel {
-                stage('Firebase Distribution') {
-                    steps {
-                        sh "./gradlew appDistributionUploadDebug"
-                    }
-                }
-
-                stage('Google Play...') {
-                    steps {
-                        sh "echo 'Test...'"
-                    }
-                }
-            }
+        stage('Checkout Git Repositório'){
+            git branch: '${BRANCH}', credentialsId: 'user-github', url: '${$URL}'
         }
     }
-}
