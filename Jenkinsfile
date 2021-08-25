@@ -19,57 +19,51 @@ podTemplate(
             checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'user-github', url: GIT_REPOS_URL]]])
         }
 
-        // stage('Gradle') {
-        //     container('android-sdk') {
-        //     echo "Inicializando Container Android-SDK"
-        //     sleep(15)
-        //         rtGradle.tool = "Gradle-7.2"
-        //         rtGradle.deployer repo:'ext-release-local', server: server
-        //         rtGradle.resolver repo:'remote-repos', server: server    
-        //     }
-        // }
-
-
+        stage('versão'){
+            container('gradle') {
+                sh 'gradle -v'
+            }
+        }
         stage('Gradlew Lint') {
             container('gradle') {
-            echo "Inicializando Container Android-SDK"
-            sleep(15)
-            sh './gradlew lint'    
+                echo "Inicializando Container Android-SDK"
+                sleep(15)
+                sh './gradlew lint'    
             }
         }
 
         stage('Gradlew Test') {
             container('gradle') {
-            echo "Inicializando Container Android-SDK"
-            sleep(15)
-            sh './gradlew test --stacktrace'
+                echo "Inicializando Container Android-SDK"
+                sleep(15)
+                sh './gradlew test --stacktrace'
             }
 
         }
         stage('Credentials') {
             container('gradle') {
-            echo "Inicializando Container Android-SDK"
-            sleep(15)
-            withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
-                sh "cp '${ANDROID_KEYSTORE_FILE}' hello-word/app/key-pipe.jks"
-            }
-            withCredentials([file(credentialsId: 'SERVICE_ACCOUNT_FIREBASE_APP', variable: 'SERVICE_ACCOUNT_FIREBASE_APP')]) {
-                sh " cp '${SERVICE_ACCOUNT_FIREBASE_APP}' hello-word/app/service-account-firebase.json"
-            }
+                echo "Inicializando Container Android-SDK"
+                sleep(15)
+                withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
+                    sh "cp '${ANDROID_KEYSTORE_FILE}' hello-word/app/key-pipe.jks"
+                }
+                withCredentials([file(credentialsId: 'SERVICE_ACCOUNT_FIREBASE_APP', variable: 'SERVICE_ACCOUNT_FIREBASE_APP')]) {
+                    sh " cp '${SERVICE_ACCOUNT_FIREBASE_APP}' hello-word/app/service-account-firebase.json"
+                }
             }
         }
         stage('Build') {
             container('gradle') {
-            echo "Inicializando Container Android-SDK"
-            sleep(15)
-            sh './gradlew assembleRelease'
+                echo "Inicializando Container Android-SDK"
+                sleep(15)
+                sh './gradlew assembleRelease'
             }
         }
         stage('Gradlew Lint') {
-            container('gradle') {
-            echo "Inicializando Container Android-SDK"
-            sleep(15)
-            sh './gradlew appDistributionUploadDebug"'
+                container('gradle') {
+                echo "Inicializando Container Android-SDK"
+                sleep(15)
+                sh './gradlew appDistributionUploadDebug"'
             }
         }
     }
