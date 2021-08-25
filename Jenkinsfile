@@ -25,6 +25,7 @@ podTemplate(
                 sh 'mkdir /opt/gradle'
                 sh 'unzip -d /opt/gradle gradle-7.2-bin.zip'
                 sh 'ls /opt/gradle/gradle-7.2'
+                sh 'export PATH=$PATH:/opt/gradle/gradle-7.2/bin'
             }
         }
 
