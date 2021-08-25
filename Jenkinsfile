@@ -32,12 +32,12 @@ podTemplate(
             }
         }
 
-        stage('Aceitando termos do SDK') {
-            container('gradle') {
-                sh 'apt install Android-sdk'
-                sh 'yes | sdkmanager --licences'
-            }
-        }
+        // stage('Aceitando termos do SDK') {
+        //     container('gradle') {
+        //         sh 'apt install Android-sdk'
+        //         sh 'yes | sdkmanager --licences'
+        //     }
+        // }
 
         stage('Credentials') {
             container('gradle') {
