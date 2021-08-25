@@ -8,9 +8,6 @@ podTemplate(
     volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')],
 ) {
     node('android-apk'){
-        tools {
-            gradle 'Gradle-7.2'
-        }
 
         def REPOS
         def BRANCH = 'main'
