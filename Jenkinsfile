@@ -29,7 +29,7 @@ podTemplate(
 
         stage('Credentials') {
             container('gradle') {
-                echo "Inicializando Container Android-SDK"
+                echo "Inicializando Container Gradle"
                 sleep(15)
                 withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
                     sh "cp '${ANDROID_KEYSTORE_FILE}' hello-word/app/key-pipe.jks"
@@ -41,10 +41,10 @@ podTemplate(
         }
         stage('Build') {
             container('gradle') {
-                echo "Inicializando Container Android-SDK"
+                echo "Inicializando Container Gradle"
                 sleep(15)
-                //sh './gradlew assembleRelease'
-                sh './gradlew assembleDebug'
+                sh './gradlew assembleRelease'
+                //sh './gradlew assembleDebug'
             }
         }
         stage('Gradlew Lint') {
