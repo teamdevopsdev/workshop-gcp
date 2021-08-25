@@ -21,6 +21,7 @@ podTemplate(
 
         stage('Install Gradle'){
             container('android-sdk') {
+                sh 'java -version'
                 sh 'wget https://services.gradle.org/distributions/gradle-7.2-bin.zip'
                 sh 'mkdir /opt/gradle'
                 sh 'unzip -d /opt/gradle gradle-7.2-bin.zip'
