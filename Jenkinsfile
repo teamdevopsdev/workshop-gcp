@@ -41,8 +41,6 @@ pipeline {
             }
         }
 
-
-
         stage('gradlew teste'){
             steps{
                 sh 'chmod +x gradlew'
@@ -50,7 +48,6 @@ pipeline {
                 sh 'gradle wrapper'
             }
         }
-
 
         stage('Build') {
             steps {
