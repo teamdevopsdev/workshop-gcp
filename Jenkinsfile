@@ -43,7 +43,7 @@ pipeline {
 
         stage('gradlew teste'){
             steps{
-                sh 'cd apptest/android/app && gradle wrapper && ./gradlew tasks --all'
+                sh 'cd app-test/android/app && gradle wrapper && ./gradlew tasks --all'
             }
         }
 
