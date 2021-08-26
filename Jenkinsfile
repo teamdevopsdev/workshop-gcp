@@ -24,6 +24,7 @@ pipeline {
                     sh 'npm config ls'
                     sh 'npm install --global yarn'
                     sh 'yarn'
+                    sh 'ls'
                 
             }
         }
@@ -36,7 +37,7 @@ pipeline {
 
         stage('Gradlew Init') {
             steps {
-                sh 'gradle init'
+                sh 'cd app-teste/android && gradle init'
             }
         }
 
@@ -59,7 +60,7 @@ pipeline {
 
         stage('Build') {
             steps {
-                sh './gradlew assembleRelease'
+                sh 'cd app-teste/android && ./gradlew assembleRelease'
             }
         }
 
