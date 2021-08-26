@@ -19,7 +19,7 @@ pipeline {
         }
         stage('Build NPM') {
             steps {
-                nodejs(nodeJSInstallationName: 'NodeJSv16.8 Installation') {
+                nodejs(nodeJSInstallationName: 'NodeJSv16 Installation') {
                     sh 'npm install --global yarn'
                     sh 'yarn'
                 }
