@@ -45,7 +45,8 @@ pipeline {
 
         stage('gradlew teste'){
             steps{
-                sh 'cd Novohelloword'
+                sh 'chmod +x gradlew'
+                sh './gradlew clean'
             }
         }
 
