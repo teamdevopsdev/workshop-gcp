@@ -27,7 +27,6 @@ pipeline {
         stage('Gradlew Init') {
             steps {
                 sh 'gradle init'
-                sh 'rm -rf $HOME/.gradle/caches $HOME/.gradle/dists/*'
             }
         }
 
@@ -47,7 +46,7 @@ pipeline {
         stage('gradlew teste'){
             steps{
                 sh 'chmod +x gradlew'
-                sh './gradlew clean'
+                sh 'chmod +x ./gradlew'
             }
         }
 
