@@ -19,13 +19,10 @@ pipeline {
                 git branch: branch, credentialsId: 'user-github', url: url
             }
         }
-        stage('Build NPM') {
+        stage('Install Yarn') {
             steps {
                     sh 'npm config ls'
                     sh 'npm install --global yarn'
-                    sh 'yarn'
-                    sh 'ls'
-                
             }
         }
 
@@ -37,6 +34,7 @@ pipeline {
 
         stage('Gradlew Init') {
             steps {
+                sh 'yarn'
                 sh 'cd app-teste/android && gradle init'
             }
         }
