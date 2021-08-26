@@ -35,8 +35,6 @@ android {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
 
-            signingConfig signingConfigs.release
-
             firebaseAppDistribution {
                 appId = "1:650911765188:android:571f85fcce0ee6b8e8ef91"
                 artifactType="APK"
@@ -47,7 +45,7 @@ android {
             signingConfig signingConfigs.release
         }
     }
-    
+
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
