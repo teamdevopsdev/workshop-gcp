@@ -3,6 +3,8 @@ pipeline {
 
     tools {
         gradle 'Gradle-7.2'
+        nodejs 'NodeJSv16'
+
     }
 
     environment {
@@ -20,6 +22,7 @@ pipeline {
         stage('Build NPM') {
             steps {
                 nodejs(nodeJSInstallationName: 'NodeJSv16 Installation') {
+                    sh 'npm config ls'
                     sh 'npm install --global yarn'
                     sh 'yarn'
                 }
