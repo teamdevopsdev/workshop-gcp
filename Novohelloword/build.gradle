@@ -18,5 +18,5 @@ task clean(type: Delete) {
     delete rootProject.buildDir
 }
 task assembleRelease(type: Release) {
-    
+    release rootProject.buildDir
 }
