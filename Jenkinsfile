@@ -43,9 +43,9 @@ pipeline {
 
         stage('gradlew teste'){
             steps{
+                sh 'cd Novohelloword/app'
                 sh 'gradle wrapper'
                 sh './gradlew tasks --all'
-                sh 'ls'
             }
         }
 
