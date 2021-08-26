@@ -30,46 +30,45 @@ pipeline {
             }
         }
 
-        stage('Credentials') {
-            steps {
-                withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
-                    sh "cp '${ANDROID_KEYSTORE_FILE}' Novohelloword/app/key-pipe.jks"
-                }
-                withCredentials([file(credentialsId: 'SERVICE_ACCOUNT_FIREBASE_APP', variable: 'SERVICE_ACCOUNT_FIREBASE_APP')]) {
-                    sh " cp '${SERVICE_ACCOUNT_FIREBASE_APP}' Novohelloword/app/service-account-firebase.json"
-                }
-            }
-        }
+        // stage('Credentials') {
+        //     steps {
+        //         withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
+        //             sh "cp '${ANDROID_KEYSTORE_FILE}' Novohelloword/app/key-pipe.jks"
+        //         }
+        //         withCredentials([file(credentialsId: 'SERVICE_ACCOUNT_FIREBASE_APP', variable: 'SERVICE_ACCOUNT_FIREBASE_APP')]) {
+        //             sh " cp '${SERVICE_ACCOUNT_FIREBASE_APP}' Novohelloword/app/service-account-firebase.json"
+        //         }
+        //     }
+        // }
 
         stage('gradlew teste'){
             steps{
-                sh 'chmod +x gradlew'
-                sh 'chmod +x ./gradlew'
                 sh 'gradle wrapper'
                 sh './gradlew tasks --all'
+                sh 'ls'
             }
         }
 
-        stage('Build') {
-            steps {
-                sh './gradlew assembleRelease'
-            }
-        }
+        // stage('Build') {
+        //     steps {
+        //         sh './gradlew assembleRelease'
+        //     }
+        // }
 
-        stage('Publish') {
-            parallel {
-                stage('Firebase Distribution') {
-                    steps {
-                        sh "./gradlew appDistributionUploadDebug"
-                    }
-                }
+        // stage('Publish') {
+        //     parallel {
+        //         stage('Firebase Distribution') {
+        //             steps {
+        //                 sh "./gradlew appDistributionUploadDebug"
+        //             }
+        //         }
 
-                stage('Google Play...') {
-                    steps {
-                        sh "echo 'Test...'"
-                    }
-                }
-            }
-        }
+        //         stage('Google Play...') {
+        //             steps {
+        //                 sh "echo 'Test...'"
+        //             }
+        //         }
+        //     }
+        // }
     }
 }
