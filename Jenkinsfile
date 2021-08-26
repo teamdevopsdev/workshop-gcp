@@ -17,13 +17,14 @@ pipeline {
                 git branch: branch, credentialsId: 'user-github', url: url
             }
         }
-        // stage('Build') {
-        //     steps {
-        //         nodejs(nodeJSInstallationName: 'NodeJSv16.8 Installation') {
-        //             sh 'npm config ls'
-        //         }
-        //     }
-        // }
+        stage('Build') {
+            steps {
+                nodejs(nodeJSInstallationName: 'NodeJSv16.8 Installation') {
+                    sh 'npm install --global yarn'
+                    sh 'yarn'
+                }
+            }
+        }
 
         stage('Version Gradle') {
             steps {
