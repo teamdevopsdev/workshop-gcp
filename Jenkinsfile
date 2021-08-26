@@ -17,7 +17,7 @@ pipeline {
                 git branch: branch, credentialsId: 'user-github', url: url
             }
         }
-        stage('Build') {
+        stage('Build NPM') {
             steps {
                 nodejs(nodeJSInstallationName: 'NodeJSv16.8 Installation') {
                     sh 'npm install --global yarn'
