@@ -16,7 +16,7 @@ android {
     compileSdk 31
 
     defaultConfig {
-        applicationId "com.example.novo_hello_word"
+        applicationId "com.example.myapp"
         minSdk 21
         targetSdk 31
         versionCode 1
@@ -42,7 +42,7 @@ android {
             signingConfig signingConfigs.release
 
             firebaseAppDistribution {
-                appId = "1:650911765188:android:571f85fcce0ee6b8e8ef91"
+                appId = "1:650911765188:android:7d9a0d70b2bcf032e8ef91"
                 artifactType="APK"
                 releaseNotesFile="/app/releasenotes.txt"
                 testers="beah.santos.costa@gmail.com"
