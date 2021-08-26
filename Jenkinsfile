@@ -46,6 +46,7 @@ pipeline {
                 sh 'chmod +x gradlew'
                 sh 'chmod +x ./gradlew'
                 sh 'gradle wrapper'
+                sh './gradlew tasks --all'
             }
         }
 
