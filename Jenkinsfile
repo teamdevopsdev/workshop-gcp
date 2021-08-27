@@ -31,15 +31,6 @@ pipeline {
             }
         }
 
-        stage('Gradlew Init') {
-            steps {
-                sh 'yarn'
-                sh 'cd app-teste/android'
-                sh 'yarn'
-                sh 'gradle init && gradle wrapper'
-            }
-        }
-
         stage('Credentials') {
             steps {
                 withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
@@ -51,15 +42,13 @@ pipeline {
             }
         }
 
-        stage('gradlew teste'){
-            steps{
-                sh 'cd app-teste/android && gradle wrapper && ./gradlew tasks --all'
-            }
-        }
-
-        stage('Build') {
+        stage('Gradlew Init') {
             steps {
-                sh 'cd app-teste/android && ./gradlew assembleRelease'
+                sh 'yarn'
+                sh 'cd app-teste/android'
+                sh 'yarn'
+                sh 'gradle init && gradle wrapper'
+                sh './gradlew assembleRelease'
             }
         }
 
