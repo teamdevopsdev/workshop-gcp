@@ -25,6 +25,15 @@ pipeline {
             }
         }
 
+        stage('Install Android SDK') {
+            steps {
+                sh 'wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip'
+                sh 'mkdir android-sdk'
+                sh 'unzip sdk-tools-linux-3859397.zip -d android-sdk'
+                sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
+            }
+        }
+
         stage('Versão Gradle') {
             steps {
                 sh 'gradle -v'
