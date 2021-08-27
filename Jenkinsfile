@@ -22,6 +22,7 @@ pipeline {
 
         stage('Install Android SDK') {
             steps {
+                sh 'apt-get install wget'
                 sh 'apt-get install unzip'
                 sh 'wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip'
                 sh 'mkdir android-sdk'
