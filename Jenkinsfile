@@ -36,7 +36,7 @@ pipeline {
                 sh 'yarn'
                 sh 'cd app-teste/android'
                 sh 'yarn'
-                sh 'gradle init'
+                sh 'gradle init && gradle wrapper'
             }
         }
 
