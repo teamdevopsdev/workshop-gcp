@@ -27,7 +27,9 @@ pipeline {
                 sh 'wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip'
                 sh 'mkdir android-sdk'
                 sh 'unzip sdk-tools-linux-3859397.zip -d android-sdk'
-                sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
+                sh 'cd /android-sdk/tools/bin'
+                sh 'ls'
+               // sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
             }
         }
 
