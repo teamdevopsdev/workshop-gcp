@@ -19,18 +19,19 @@ pipeline {
                 git branch: branch, credentialsId: 'user-github', url: url
             }
         }
-        stage('Install Yarn') {
-            steps {
-                    sh 'npm install --global yarn'
-            }
-        }
 
         stage('Install Android SDK') {
             steps {
-                sh 'wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip'
+                sh 'sudo wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip'
                 sh 'mkdir android-sdk'
                 sh 'unzip sdk-tools-linux-3859397.zip -d android-sdk'
                 sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
+            }
+        }
+
+        stage('Install Yarn') {
+            steps {
+                    sh 'npm install --global yarn'
             }
         }
 
