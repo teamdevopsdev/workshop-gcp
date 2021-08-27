@@ -22,14 +22,14 @@ pipeline {
 
         stage('Install Android SDK') {
             steps {
-                sh 'apt-get update'
-                sh 'apt-get install unzip'
-                sh 'wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip'
-                sh 'mkdir android-sdk'
-                sh 'unzip sdk-tools-linux-3859397.zip -d android-sdk'
+                //sh 'apt-get update'
+                //sh 'apt-get install unzip'
+                //sh 'wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip'
+                //sh 'mkdir android-sdk'
+                //sh 'unzip sdk-tools-linux-3859397.zip -d android-sdk'
                 sh 'cd /android-sdk/tools/bin'
                 sh 'ls'
-               // sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
+                sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
             }
         }
 
