@@ -21,12 +21,11 @@ pipeline {
         }
         stage('Install Yarn') {
             steps {
-                    sh 'npm config ls'
                     sh 'npm install --global yarn'
             }
         }
 
-        stage('Version Gradle') {
+        stage('Versão Gradle') {
             steps {
                 sh 'gradle -v'
             }
@@ -35,7 +34,9 @@ pipeline {
         stage('Gradlew Init') {
             steps {
                 sh 'yarn'
-                sh 'cd app-teste/android && gradle init'
+                sh 'cd app-teste/android'
+                sh 'yarn'
+                sh 'gradle init'
             }
         }
 
