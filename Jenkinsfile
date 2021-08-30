@@ -54,12 +54,7 @@ pipeline {
 
         stage('Gradlew Init') {
             steps {
-                sh 'cd app-teste/android'
-                sh 'npm install --global yarn'
-                sh 'yarn'
-                sh 'chmod +x gradlew'
-                sh './gradlew clean'
-                sh './gradlew assembleDebug'
+                sh 'cd app-teste/android && chmod +x gradlew && ./gradlew clean && ./gradlew assembleDebug'
             }
         }
 
