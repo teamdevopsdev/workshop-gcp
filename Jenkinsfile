@@ -29,8 +29,7 @@ podTemplate(
                 sh 'mkdir android-sdk'
                 sh 'unzip  commandlinetools-linux-7583922_latest.zip -d android-sdk'
                 sh 'ls'
-                sh 'cd  /home/jenkins/agent/workspace/android-sdk'
-                sh 'ls'
+                sh '/android-sdk'
                 sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
              }
         }
