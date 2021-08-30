@@ -25,6 +25,7 @@ podTemplate(
 
         stage('Gradlew Init') {
             container('openjdk') {
+                sh 'gradle -v'
                 sh 'gradle init && gradle wrapper'
                 sh './gradlew tasks --all'
             }
