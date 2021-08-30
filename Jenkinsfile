@@ -19,6 +19,7 @@ podTemplate(
             container('gradle') {
                 nodejs(nodeJSInstallationName: 'NodeJSv16'){
                     sh 'npm install yarn'  
+                    sh 'cd app-teste/android && npm install yarn'
                 }
             }
         }
