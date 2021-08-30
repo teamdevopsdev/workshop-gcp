@@ -26,9 +26,9 @@ podTemplate(
 
         stage('Install Android SDK') {
             container('gradle'){
-                sh 'cd app-teste/android && wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -o android-sdk.zip'
+                sh 'cd app-teste/android && wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip'
                 sh 'mkdir android-sdk'
-                sh 'unzip android-sdk.zip -d .'
+                sh 'unzip commandlinetools-linux-7583922_latest.zip -d android-sdk'
                 sh 'ls'
             }
         }
