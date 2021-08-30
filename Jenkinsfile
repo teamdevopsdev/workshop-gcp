@@ -30,7 +30,7 @@ podTemplate(
                 sh 'unzip  commandlinetools-linux-7583922_latest.zip -d android-sdk'
                 sh 'ls'
                 sh ' cd /home/jenkins/agent/workspace/app-teste/android-sdk/cmdline-tools && ls'
-                sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
+                sh 'yes | /home/jenkins/agent/workspace/app-teste/android-sdk/cmdline-tools/bin/sdkmanager --licenses'
              }
         }
 
