@@ -62,8 +62,9 @@ pipeline {
                 sh 'cd app-teste/android'
                 sh 'yarn'
                 sh 'gradle init && gradle wrapper'
-                sh ' ./gradlew build'
-                sh './gradlew assembleRelease'
+                sh './gradlew tasks'
+              //  sh ' ./gradlew build'
+             //   sh './gradlew assembleRelease'
             }
         }
 
