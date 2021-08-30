@@ -10,14 +10,14 @@ podTemplate(
     node('android-apk'){
 
         def GIT_REPOS_URL = 'https://github.com/teamdevopsdev/workshop-gcp'
-                
+
         stage('Checkout') {
             checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'user-github', url: GIT_REPOS_URL]]])
         }
         
         stage('Install Yarn') {
             container('helm-container') {
-                nodejs(nodeJSInstallationName: 'NodeJSv16 Installation') {
+                nodejs(nodeJSInstallationName: 'NodeJSv16') {
                     sh 'npm install yarn'
                 }
             }
