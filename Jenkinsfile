@@ -55,7 +55,7 @@ pipeline {
 
         stage('Gradlew Init') {
             steps {
-                sh 'cd app-teste/android && chmod +x gradlew && ./gradlew clean && ./gradlew assembleDebug'
+                sh 'cd app-teste/android && chmod +x gradlew && ./gradlew clean && ./gradlew tasks --all && ./gradlew assembleRelease'
             }
         }
 
