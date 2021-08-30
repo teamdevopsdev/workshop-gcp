@@ -17,7 +17,9 @@ podTemplate(
         
         stage('Install Yarn') {
             container('openjdk') {
-                sh 'npm install yarn'
+                nodejs(nodeJSInstallationName: 'NodeJSv16'){
+                    sh 'npm install yarn'  
+                }
             }
         }
 
