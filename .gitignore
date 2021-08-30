@@ -1,3 +1,4 @@
 credentials.yaml
 .terraform*
 jenkins
+local.properties

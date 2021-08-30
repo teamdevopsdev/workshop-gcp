@@ -19,18 +19,18 @@ podTemplate(
             container('gradle') {
                 nodejs(nodeJSInstallationName: 'NodeJSv16'){
                     sh 'npm install yarn'  
-                    sh 'cd app-teste/android && npm install yarn'
+                    sh 'cd app-teste/android && npm install --global yarn'
                 }
             }
         }
 
-        stage('Install Android SDK') {
-            container('gradle'){
-                sh 'wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip'
-                sh 'mkdir android-sdk'
-                sh 'unzip commandlinetools-linux-7583922_latest.zip -d android-sdk'
-            }
-        }
+        // stage('Install Android SDK') {
+        //     container('gradle'){
+        //         sh 'wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip'
+        //         sh 'mkdir android-sdk'
+        //         sh 'unzip commandlinetools-linux-7583922_latest.zip -d android-sdk'
+        //     }
+        // }
 
         stage('Gradlew Init') {
             container('gradle') {
