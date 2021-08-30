@@ -16,7 +16,7 @@ podTemplate(
         }
         
         stage('Install Yarn') {
-            container('helm-container') {
+            container('openjdk') {
                 sh 'npm install yarn'
             }
         }
