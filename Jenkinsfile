@@ -3,7 +3,8 @@ podTemplate(
     label: 'android-apk', 
     containers: [
         containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'docker', livenessProbe: containerLivenessProbe(execArgs: '', failureThreshold: 0, initialDelaySeconds: 0, periodSeconds: 0, successThreshold: 0, timeoutSeconds: 0), name: 'docker-container', resourceLimitCpu: '', resourceLimitMemory: '', resourceRequestCpu: '', resourceRequestMemory: '', ttyEnabled: true, workingDir: '/home/jenkins/agent'),
-        containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'openjdk:latest', name: 'openjdk', ttyEnabled: true)
+        containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'openjdk:latest', name: 'openjdk', ttyEnabled: true),
+        containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'gradle:latest', name: 'gradle', ttyEnabled: true)
     ],
     volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')],
 ) {
@@ -24,14 +25,14 @@ podTemplate(
         }
 
         stage('Gradlew Init') {
-            container('openjdk') {
+            container('gradle') {
                 sh 'gradle -v'
                 sh 'gradle init && gradle wrapper'
                 sh './gradlew tasks --all'
             }
         }
 
-        stage('Credentials') {
+        stage('gradle') {
             container('openjdk'){
                 withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
                     sh "cp '${ANDROID_KEYSTORE_FILE}' app-teste/android/app/key-pipe.jks"
