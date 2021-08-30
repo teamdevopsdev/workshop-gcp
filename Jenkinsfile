@@ -23,9 +23,10 @@ podTemplate(
             }
         }
 
-        stage('Gradlew Clean'){
+        stage('Gradlew Init') {
             container('openjdk') {
-               sh './gradlew clean build'
+                sh 'gradle init && gradle wrapper'
+                sh './gradlew tasks --all'
             }
         }
 
@@ -37,13 +38,6 @@ podTemplate(
                 withCredentials([file(credentialsId: 'SERVICE_ACCOUNT_FIREBASE_APP', variable: 'SERVICE_ACCOUNT_FIREBASE_APP')]) {
                     sh " cp '${SERVICE_ACCOUNT_FIREBASE_APP}' app-teste/android/app/service-account-firebase.json"
                 }
-            }
-        }
-
-        stage('Gradlew Init') {
-            container('openjdk') {
-                sh 'gradle init && gradle wrapper'
-                sh './gradlew tasks --all'
             }
         }
     }
