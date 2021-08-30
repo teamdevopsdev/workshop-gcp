@@ -1,52 +1,36 @@
-pipeline {
-    agent any
+podTemplate(
+    name: 'android-apk',
+    label: 'android-apk', 
+    containers: [
+        containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'docker', livenessProbe: containerLivenessProbe(execArgs: '', failureThreshold: 0, initialDelaySeconds: 0, periodSeconds: 0, successThreshold: 0, timeoutSeconds: 0), name: 'docker-container', resourceLimitCpu: '', resourceLimitMemory: '', resourceRequestCpu: '', resourceRequestMemory: '', ttyEnabled: true, workingDir: '/home/jenkins/agent'),
+        containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'openjdk:latest', name: 'openjdk', ttyEnabled: true)
+    ],
+    volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')],
+) {
+    node('android-apk'){
 
-    tools {
-        gradle 'Gradle-7.2'
-        nodejs 'NodeJSv16'
-
-    }
-
-    environment {
-        branch = 'main'
-        url = 'https://github.com/teamdevopsdev/workshop-gcp'
-    }
-
-    stages {
-
-        stage('Checkout git') {
-            steps {
-                git branch: branch, credentialsId: 'user-github', url: url
-            }
+        def GIT_REPOS_URL = "https://github.com/teamdevopsdev/workshop-gcp"
+        
+        stage('Checkout') {
+            checkout([$class: 'GitSCM', branches: [[name: '*/develop']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'user-github', url: GIT_REPOS_URL]]])
         }
-
-        //stage('Install Android SDK') {
-            //steps {
-                //sh 'apt-get update'
-                //sh 'apt-get install unzip'
-                //sh 'wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip'
-                //sh 'mkdir android-sdk'
-                //sh 'unzip sdk-tools-linux-3859397.zip -d android-sdk'
-               // sh 'cd /android-sdk/tools/bin'
-                //sh 'ls'
-                //sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
-          //  }
-        //}
-
+        
         stage('Install Yarn') {
-            steps {
-                    sh 'npm install --global yarn'
+            container('helm-container') {
+                nodejs(nodeJSInstallationName: 'NodeJSv16 Installation') {
+                    sh 'npm install yarn'
+                }
             }
         }
 
-        stage('Versão Gradle') {
-            steps {
-                sh 'gradle -v'
+        stage('Gradlew Clean'){
+            container('openjdk') {
+               sh './gradlew clean build'
             }
         }
 
         stage('Credentials') {
-            steps {
+            container('openjdk'){
                 withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
                     sh "cp '${ANDROID_KEYSTORE_FILE}' app-teste/android/app/key-pipe.jks"
                 }
@@ -57,30 +41,9 @@ pipeline {
         }
 
         stage('Gradlew Init') {
-            steps {
-                sh 'yarn'
-                sh 'cd app-teste/android'
-                sh 'yarn'
+            container('openjdk') {
                 sh 'gradle init && gradle wrapper'
                 sh './gradlew tasks --all'
-              //  sh ' ./gradlew build'
-             //   sh './gradlew assembleRelease'
-            }
-        }
-
-        stage('Publish') {
-            parallel {
-                stage('Firebase Distribution') {
-                    steps {
-                        sh "./gradlew appDistributionUploadDebug"
-                    }
-                }
-
-                stage('Google Play...') {
-                    steps {
-                        sh "echo 'Test...'"
-                    }
-                }
             }
         }
     }
