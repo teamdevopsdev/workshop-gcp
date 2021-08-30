@@ -27,8 +27,8 @@ pipeline {
                 //sh 'wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip'
                 //sh 'mkdir android-sdk'
                 //sh 'unzip sdk-tools-linux-3859397.zip -d android-sdk'
-                sh 'cd /android-sdk/tools/bin'
-                sh 'ls'
+               // sh 'cd /android-sdk/tools/bin'
+                //sh 'ls'
                 sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
             }
         }
@@ -62,6 +62,7 @@ pipeline {
                 sh 'cd app-teste/android'
                 sh 'yarn'
                 sh 'gradle init && gradle wrapper'
+                sh ' ./gradlew build'
                 sh './gradlew assembleRelease'
             }
         }
