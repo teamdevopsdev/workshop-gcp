@@ -3,7 +3,6 @@ podTemplate(
     label: 'android-apk', 
     containers: [
         containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'docker', livenessProbe: containerLivenessProbe(execArgs: '', failureThreshold: 0, initialDelaySeconds: 0, periodSeconds: 0, successThreshold: 0, timeoutSeconds: 0), name: 'docker-container', resourceLimitCpu: '', resourceLimitMemory: '', resourceRequestCpu: '', resourceRequestMemory: '', ttyEnabled: true, workingDir: '/home/jenkins/agent'),
-        containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'androidsdk/android-30', name: 'android', ttyEnabled: true),
         containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'gradle:latest', name: 'gradle', ttyEnabled: true)
     ],
     volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')],
@@ -17,23 +16,33 @@ podTemplate(
         }
         
         stage('Install Yarn') {
-            container('android') {
+            container('gradle') {
                 nodejs(nodeJSInstallationName: 'NodeJSv16'){
                     sh 'npm install yarn'  
                 }
             }
         }
 
+        stage('Install Android SDK') {
+            container('gradle'){
+                sh 'wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip'
+                sh 'mkdir android-sdk'
+                sh 'unzip sdk-tools-linux-3859397.zip -d android-sdk'
+                sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
+
+            }
+        }
+
         stage('Gradlew Init') {
-            container('android') {
+            container('gradle') {
                 sh 'gradle -v'
                 sh 'gradle init && gradle wrapper'
                 sh './gradlew tasks --all'
             }
         }
 
-        stage('gradle') {
-            container('android'){
+        stage('Credentials') {
+            container('gradle'){
                 withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
                     sh "cp '${ANDROID_KEYSTORE_FILE}' app-teste/android/app/key-pipe.jks"
                 }
