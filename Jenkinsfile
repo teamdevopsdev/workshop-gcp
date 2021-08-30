@@ -20,8 +20,8 @@ pipeline {
             }
         }
 
-        stage('Install Android SDK') {
-            steps {
+        //stage('Install Android SDK') {
+            //steps {
                 //sh 'apt-get update'
                 //sh 'apt-get install unzip'
                 //sh 'wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip'
@@ -30,8 +30,8 @@ pipeline {
                // sh 'cd /android-sdk/tools/bin'
                 //sh 'ls'
                 //sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
-            }
-        }
+          //  }
+        //}
 
         stage('Install Yarn') {
             steps {
