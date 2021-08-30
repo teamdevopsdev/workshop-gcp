@@ -29,7 +29,7 @@ pipeline {
                 //sh 'unzip sdk-tools-linux-3859397.zip -d android-sdk'
                // sh 'cd /android-sdk/tools/bin'
                 //sh 'ls'
-                sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
+                //sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
             }
         }
 
