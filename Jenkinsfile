@@ -27,7 +27,7 @@ podTemplate(
             container('gradle'){
                 sh 'wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip'
                 sh 'mkdir android-sdk'
-                sh 'unzip sdk-tools-linux-3859397.zip -d android-sdk'
+                sh 'unzip  commandlinetools-linux-7583922_latest.zip -d android-sdk'
                 sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
 
             }
