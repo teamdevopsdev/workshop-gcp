@@ -24,21 +24,19 @@ podTemplate(
             }
         }
 
-        // stage('Install Android SDK') {
-        //     //container('gradle'){
-        //         sh 'wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip'
-        //         sh 'mkdir android-sdk'
-        //         sh 'unzip  commandlinetools-linux-7583922_latest.zip -d android-sdk'
-        //         sh 'ls'
-        //         sh 'cd /home/jenkins/agent/workspace/app-teste/android-sdk/cmdline-tools && ls'
-        //         sh 'yes | /home/jenkins/agent/workspace/app-teste/android-sdk/cmdline-tools/bin/sdkmanager --licenses'
-        //     //}
-        // }
+        stage('Install Android SDK') {
+            container('gradle'){
+                sh 'cd app-teste/android && wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip -o android-sdk.zip'
+                sh 'mkdir android-sdk'
+                sh 'unzip android-sdk.zip -d .'
+                sh 'ls'
+            }
+        }
 
         stage('Gradlew Init') {
             container('gradle') {
                 sh 'ls'
-                sh 'cd app-teste/android && gradle -v && gradle init && gradle wrapper && ./gradlew tasks --all'
+                sh 'cd app-teste/android && chmod +x gradlew && gradle -v && gradle init && gradle wrapper && ./gradlew tasks --all'
             }
         }
 
