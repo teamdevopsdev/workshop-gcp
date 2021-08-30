@@ -17,9 +17,7 @@ podTemplate(
         
         stage('Install Yarn') {
             container('helm-container') {
-                nodejs(nodeJSInstallationName: 'NodeJSv16') {
-                    sh 'npm install yarn'
-                }
+                sh 'npm install yarn'
             }
         }
 
