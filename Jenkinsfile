@@ -24,14 +24,14 @@ podTemplate(
         }
 
         stage('Install Android SDK') {
-            container('gradle'){
+            //container('gradle'){
                 sh 'wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip'
                 sh 'mkdir android-sdk'
                 sh 'unzip  commandlinetools-linux-7583922_latest.zip -d android-sdk'
                 sh 'ls'
-                sh ' cd /home/jenkins/agent/workspace/app-teste/android-sdk/cmdline-tools && ls'
+                sh 'cd /home/jenkins/agent/workspace/app-teste/android-sdk/cmdline-tools && ls'
                 sh 'yes | /home/jenkins/agent/workspace/app-teste/android-sdk/cmdline-tools/bin/sdkmanager --licenses'
-             }
+            //}
         }
 
         stage('Gradlew Init') {
