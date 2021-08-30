@@ -37,9 +37,11 @@ podTemplate(
         stage('Gradlew Init') {
             container('gradle') {
                 sh 'ls'
-                sh 'gradle -v'
-                sh 'gradle init && gradle wrapper'
-                sh './gradlew tasks --all'
+                sh 'cd app-teste/android && 
+                    gradle -v && 
+                    gradle init && 
+                    gradle wrapper && 
+                    ./gradlew tasks --all'
             }
         }
 
