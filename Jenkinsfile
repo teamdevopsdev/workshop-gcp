@@ -24,7 +24,7 @@ podTemplate(
         }
 
         stage('Install Android SDK') {
-            container('gradle'){
+            //container('gradle'){
                 sh 'wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip'
                 sh 'mkdir android-sdk'
                 sh 'unzip  commandlinetools-linux-7583922_latest.zip -d android-sdk'
@@ -32,7 +32,7 @@ podTemplate(
                 sh 'ls'
               // sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
 
-            }
+           // }
         }
 
         stage('Gradlew Init') {
