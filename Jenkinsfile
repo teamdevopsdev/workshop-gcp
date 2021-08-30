@@ -1,50 +1,80 @@
-podTemplate(
-    name: 'android-apk',
-    label: 'android-apk', 
-    containers: [
-        containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'docker', livenessProbe: containerLivenessProbe(execArgs: '', failureThreshold: 0, initialDelaySeconds: 0, periodSeconds: 0, successThreshold: 0, timeoutSeconds: 0), name: 'docker-container', resourceLimitCpu: '', resourceLimitMemory: '', resourceRequestCpu: '', resourceRequestMemory: '', ttyEnabled: true, workingDir: '/home/jenkins/agent'),
-        containerTemplate(args: 'cat', command: '/bin/sh -c', image: 'gradle:latest', name: 'gradle', ttyEnabled: true)
-    ],
-    volumes: [hostPathVolume(hostPath: '/var/run/docker.sock', mountPath: '/var/run/docker.sock')],
-) {
-    node('android-apk'){
+pipeline {
+    agent any
 
-        def GIT_REPOS_URL = 'https://github.com/teamdevopsdev/workshop-gcp'
+    tools {
+        gradle 'Gradle-7.2'
+        nodejs 'NodeJSv16'
+    }
 
-        stage('Checkout') {
-            checkout([$class: 'GitSCM', branches: [[name: '*/main']], doGenerateSubmoduleConfigurations: false, extensions: [], submoduleCfg: [], userRemoteConfigs: [[credentialsId: 'user-github', url: GIT_REPOS_URL]]])
-        }
-        
-        stage('Install Yarn') {
-            container('gradle') {
-                nodejs(nodeJSInstallationName: 'NodeJSv16'){
-                    sh 'npm install yarn'  
-                    sh 'cd app-teste/android && npm install --global yarn'
-                }
+    environment {
+        branch = 'main'
+        url = 'https://github.com/teamdevopsdev/workshop-gcp.git'
+    }
+
+    stages {
+
+        stage('Checkout git') {
+            steps {
+                git branch: branch, credentialsId: 'user-github', url: url
             }
         }
 
-        // stage('Install Android SDK') {
-        //     container('gradle'){
-        //         sh 'wget https://dl.google.com/android/repository/commandlinetools-linux-7583922_latest.zip'
-        //         sh 'mkdir android-sdk'
-        //         sh 'unzip commandlinetools-linux-7583922_latest.zip -d android-sdk'
-        //     }
-        // }
+        stage('Install and Init Yarn') {
+            steps {
+                    sh 'npm install --global yarn'
+                    sh 'cd app-teste/android && yarn'
+            }
+        }
 
-        stage('Gradlew Init') {
-            container('gradle') {
-                sh 'cd app-teste/android && chmod +x gradlew && gradle -v && gradle wrapper && ./gradlew tasks --all'
+        stage('Version Gradle') {
+            steps {
+                sh 'gradle -v'
+            }
+        }
+
+        stage('Install Android SDK') {
+            steps {
+                sh 'wget https://dl.google.com/android/repository/sdk-tools-linux-3859397.zip'
+                sh 'mkdir android-sdk'
+                sh 'unzip sdk-tools-linux-3859397.zip -d android-sdk'
+                sh 'yes | android-sdk/tools/bin/sdkmanager --licenses'
             }
         }
 
         stage('Credentials') {
-            container('gradle'){
+            steps {
                 withCredentials([file(credentialsId: 'ANDROID_KEYSTORE_FILE', variable: 'ANDROID_KEYSTORE_FILE')]) {
                     sh "cp '${ANDROID_KEYSTORE_FILE}' app-teste/android/app/key-pipe.jks"
                 }
                 withCredentials([file(credentialsId: 'SERVICE_ACCOUNT_FIREBASE_APP', variable: 'SERVICE_ACCOUNT_FIREBASE_APP')]) {
                     sh " cp '${SERVICE_ACCOUNT_FIREBASE_APP}' app-teste/android/app/service-account-firebase.json"
+                }
+            }
+        }
+
+        stage('Gradlew Init') {
+            steps {
+                sh 'cd app-teste/android'
+                sh 'npm install --global yarn'
+                sh 'yarn'
+                sh 'chmod +x gradlew'
+                sh './gradlew clean'
+                sh './gradlew assembleDebug'
+            }
+        }
+
+        stage('Publish') {
+            parallel {
+                stage('Firebase Distribution') {
+                    steps {
+                        sh "./gradlew appDistributionUploadDebug"
+                    }
+                }
+
+                stage('Google Play...') {
+                    steps {
+                        sh "echo 'Test...'"
+                    }
                 }
             }
         }
