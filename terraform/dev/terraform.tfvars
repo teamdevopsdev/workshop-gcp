@@ -1,0 +1,5 @@
+project_id        = ""
+application_name  = ""
+region            = "us-central1"
+subnetwork_id     = ""
+network_self_link = ""

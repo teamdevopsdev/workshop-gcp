@@ -1,0 +1,14 @@
+controller:
+  metrics:
+    enabled: false
+  service:
+    targetPorts:
+      http: http
+      https: http
+    annotations:
+      nginx.ingress.kubernetes.io/configuration-snippet: |
+        if ($host != "https://$host$request_uri") {
+            return 308 https://$host$request_uri;
+        }
+rbac:
+  create: true
